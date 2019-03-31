@@ -11,10 +11,6 @@ from google.cloud.vision import types
 
 import RPi.GPIO as GPIO
 
-GPIO_PIN = 23
-GPIO.setmode(GPIO.BCM)
-GPIO.setup(GPIO_PIN, GPIO.OUT)
-
 client = vision.ImageAnnotatorClient()
 
 vc = cv2.VideoCapture(0)
@@ -61,6 +57,9 @@ def video_feed():
 @app.route('/send_signal', methods=['GET', 'POST'])
 def send_signal():
   try:
+    GPIO_PIN = 23
+    GPIO.setmode(GPIO.BCM)
+    GPIO.setup(GPIO_PIN, GPIO.OUT)
     GPIO.output(GPIO_PIN, GPIO.HIGH)
     # time.sleep(1)
     # GPIO.output(GPIO_PIN, GPIO.HIGH)
