@@ -6,8 +6,8 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/base.css') }}">
  </head> 
- <body onload="requestText()">
- <!-- <body>  -->
+ <!-- <body onload="requestText()"> -->
+ <body> 
    	<h4 align="center">Charpy - Live Video Streaming</h4> 
 <!--    	<div class="container-fluid" style="text-align: center;">
 		<img src="{{ url_for('video_feed') }}" height="350"> 
@@ -15,8 +15,8 @@
 	<iframe src="http://192.168.43.254:8081" style="text-align: center;" width="640px" height="480px"></iframe>
 	<div class="container-fluid text-center">
 		Text Detection<br>
-<!-- 		<button class="btn btn-sm btn-success" onclick="startDetection()">ON</button>
-		<button class="btn btn-sm btn-danger" onclick="stopDetection()">OFF</button> -->
+		<button class="btn btn-sm btn-success" onclick="startDetection()">ON</button>
+		<button class="btn btn-sm btn-danger" onclick="stopDetection()">OFF</button>
 	</div>
 	<div class="container-fluid text-center" id="text_feed">
 	</div>
