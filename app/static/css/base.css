@@ -1,0 +1,11 @@
+#text_feed {
+	margin-top: 5px;
+	padding: 3px;
+	border: 1px solid black;
+	width: 800px;
+}
+
+.signal_box {
+	text-align: center;
+	margin-top: 5px;
+}
