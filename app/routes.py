@@ -2,7 +2,6 @@ from flask import Flask
 from flask import render_template, flash, redirect, url_for, session, request, Response
 from flask import jsonify
 from app import app
-from camera_pi import Camera
 import cv2
 import io
 from PIL import Image
@@ -18,7 +17,7 @@ GPIO.setup(GPIO_PIN, GPIO.OUT)
 
 client = vision.ImageAnnotatorClient()
 
-# vc = cv2.VideoCapture("0")
+vc = cv2.VideoCapture("0")
 
 @app.route('/')
 @app.route('/index')
@@ -26,11 +25,10 @@ def index():
    """Video streaming .""" 
    return render_template('index.html')
 
-def gen(camera): 
+def gen(): 
    """Video streaming generator function.""" 
    while True: 
-       # rval, frame = vc.read() 
-       frame = camera.get_frame()
+       rval, frame = vc.read() 
        cv2.imwrite('pic.jpg', frame)
        yield (b'--frame\r\n' 
               b'Content-Type: image/jpeg\r\n\r\n' + open('pic.jpg', 'rb').read() + b'\r\n') 
@@ -57,7 +55,7 @@ def detect_text():
 @app.route('/video_feed') 
 def video_feed(): 
    """Video streaming route. Put this in the src attribute of an img tag."""
-   return Response(gen(Camera()), 
+   return Response(gen(), 
                    mimetype='multipart/x-mixed-replace; boundary=frame')
 
 @app.route('/send_signal', methods=['GET', 'POST'])
