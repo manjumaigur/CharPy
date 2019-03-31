@@ -13,3 +13,6 @@ Steps to followed to run the website in Raspberry Pi
 	$ flask run
 5. wait for some 30sec or 1 min.
 6. Go to browser and browse to localhost:5000 or 127.0.0.1:5000 or 0.0.0.0:5000
+
+
+export GOOGLE_APPLICATION_CREDENTIALS=project.json
