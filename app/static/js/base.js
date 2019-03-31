@@ -1,6 +1,6 @@
 var text_feed = document.getElementById('text_feed');
 var signal_info = document.getElementById('signal_info');
-var detectionFlag = 0;
+var detectionFlag = 1;
 
 function startDetection() {
   detectionFlag = 1;
