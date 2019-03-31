@@ -13,7 +13,7 @@ import RPi.GPIO as GPIO
 
 client = vision.ImageAnnotatorClient()
 
-vc = cv2.VideoCapture("192.168.43.254:8081")
+vc = cv2.VideoCapture(192.168.43.254:8081)
 
 @app.route('/')
 @app.route('/index')
