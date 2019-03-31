@@ -15,7 +15,7 @@ from google.cloud.vision import types
 
 context = zmq.Context()
 footage_socket = context.socket(zmq.PUB)
-footage_socket.connect('tcp://localhost:5555')
+footage_socket.connect('tcp://localhost:5000')
 
 client = vision.ImageAnnotatorClient()
 
