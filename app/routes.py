@@ -18,7 +18,7 @@ GPIO.setup(GPIO_PIN, GPIO.OUT)
 
 client = vision.ImageAnnotatorClient()
 
-vc = cv2.VideoCapture("http://192.168.43.254:8081")
+vc = cv2.VideoCapture("http://10.53.103.234:8081")
 
 @app.route('/')
 @app.route('/index')
