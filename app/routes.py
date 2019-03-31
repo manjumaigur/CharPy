@@ -2,7 +2,7 @@ from flask import Flask
 from flask import render_template, flash, redirect, url_for, session, request, Response
 from flask import jsonify
 from app import app
-#import picamera 
+import picamera 
 import cv2
 import io
 from PIL import Image
@@ -10,11 +10,11 @@ from PIL import Image
 from google.cloud import vision
 from google.cloud.vision import types
 
-# import RPi.GPIO as GPIO
+import RPi.GPIO as GPIO
 
-# GPIO_PIN = 23
-# GPIO.setmode(GPIO.BCM)
-# GPIO.setup(GPIO_PIN, GPIO.OUT)
+GPIO_PIN = 23
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(GPIO_PIN, GPIO.OUT)
 
 client = vision.ImageAnnotatorClient()
 
@@ -61,18 +61,18 @@ def video_feed():
 
 @app.route('/send_signal', methods=['GET', 'POST'])
 def send_signal():
-  # try:
-  #   GPIO.output(GPIO_PIN, GPIO.HIGH)
-  #   time.sleep(1)
-  #   GPIO.output(GPIO_PIN, GPIO.HIGH)
-  #   time.sleep(1)
-  #   GPIO.output(GPIO_PIN, GPIO.HIGH)
-  #   time.sleep(1)
-  #   GPIO.output(GPIO_PIN, GPIO.LOW)
-  # except:
-  #   print ("Error inside function send_signal")
-  #   pass
-  # GPIO.cleanup()
+  try:
+    GPIO.output(GPIO_PIN, GPIO.HIGH)
+    time.sleep(1)
+    GPIO.output(GPIO_PIN, GPIO.HIGH)
+    time.sleep(1)
+    GPIO.output(GPIO_PIN, GPIO.HIGH)
+    time.sleep(1)
+    GPIO.output(GPIO_PIN, GPIO.LOW)
+  except:
+    print ("Error inside function send_signal")
+    pass
+  GPIO.cleanup()
   return jsonify(
       success=True,
   )
