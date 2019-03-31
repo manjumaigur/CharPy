@@ -62,12 +62,12 @@ def video_feed():
 def send_signal():
   try:
     GPIO.output(GPIO_PIN, GPIO.HIGH)
-    time.sleep(1)
-    GPIO.output(GPIO_PIN, GPIO.HIGH)
-    time.sleep(1)
-    GPIO.output(GPIO_PIN, GPIO.HIGH)
-    time.sleep(1)
-    GPIO.output(GPIO_PIN, GPIO.LOW)
+    # time.sleep(1)
+    # GPIO.output(GPIO_PIN, GPIO.HIGH)
+    # time.sleep(1)
+    # GPIO.output(GPIO_PIN, GPIO.HIGH)
+    # time.sleep(1)
+    # GPIO.output(GPIO_PIN, GPIO.LOW)
   except:
     print ("Error inside function send_signal")
     pass
