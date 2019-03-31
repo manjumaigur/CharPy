@@ -4,22 +4,16 @@ from flask import jsonify
 from app import app
 import cv2
 import io
-import base64
-import zmq
 from PIL import Image
 # Imports the Google Cloud client library
 from google.cloud import vision
 from google.cloud.vision import types
 
-# import RPi.GPIO as GPIO
-
-context = zmq.Context()
-footage_socket = context.socket(zmq.PUB)
-footage_socket.connect('tcp://localhost:5000')
+import RPi.GPIO as GPIO
 
 client = vision.ImageAnnotatorClient()
 
-camera = cv2.VideoCapture(0)
+vc = cv2.VideoCapture(0)
 
 @app.route('/')
 @app.route('/index')
@@ -30,19 +24,9 @@ def index():
 def gen(): 
    """Video streaming generator function.""" 
    while True: 
-    try:
-        grabbed, frame = camera.read()  # grab the current frame
-        frame = cv2.resize(frame, (640, 480))  # resize the frame
-        encoded, buffer = cv2.imencode('.jpg', frame)
-        cv2.imwrite('pic.jpg', frame)
-        jpg_as_text = base64.b64encode(buffer)
-        footage_socket.send(jpg_as_text)
-
-    except KeyboardInterrupt:
-        camera.release()
-        cv2.destroyAllWindows()
-        break
-    yield (b'--frame\r\n' 
+       rval, frame = vc.read() 
+       cv2.imwrite('pic.jpg', frame)
+       yield (b'--frame\r\n' 
               b'Content-Type: image/jpeg\r\n\r\n' + open('pic.jpg', 'rb').read() + b'\r\n') 
 
 @app.route('/text_feed', methods=['GET', 'POST'])
@@ -72,21 +56,21 @@ def video_feed():
 
 @app.route('/send_signal', methods=['GET', 'POST'])
 def send_signal():
-  # try:
-  #   GPIO_PIN = 23
-  #   GPIO.setmode(GPIO.BCM)
-  #   GPIO.setup(GPIO_PIN, GPIO.OUT)
-  #   GPIO.output(GPIO_PIN, GPIO.HIGH)
-  #   # time.sleep(1)
-  #   # GPIO.output(GPIO_PIN, GPIO.HIGH)
-  #   # time.sleep(1)
-  #   # GPIO.output(GPIO_PIN, GPIO.HIGH)
-  #   # time.sleep(1)
-  #   # GPIO.output(GPIO_PIN, GPIO.LOW)
-  # except:
-  #   print ("Error inside function send_signal")
-  #   pass
-  # GPIO.cleanup()
+  try:
+    GPIO_PIN = 23
+    GPIO.setmode(GPIO.BCM)
+    GPIO.setup(GPIO_PIN, GPIO.OUT)
+    GPIO.output(GPIO_PIN, GPIO.HIGH)
+    # time.sleep(1)
+    # GPIO.output(GPIO_PIN, GPIO.HIGH)
+    # time.sleep(1)
+    # GPIO.output(GPIO_PIN, GPIO.HIGH)
+    # time.sleep(1)
+    # GPIO.output(GPIO_PIN, GPIO.LOW)
+  except:
+    print ("Error inside function send_signal")
+    pass
+  GPIO.cleanup()
   return jsonify(
       success=True,
   )
