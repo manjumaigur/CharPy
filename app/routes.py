@@ -17,7 +17,7 @@ GPIO.setup(GPIO_PIN, GPIO.OUT)
 
 client = vision.ImageAnnotatorClient()
 
-vc = cv2.VideoCapture("0")
+vc = cv2.VideoCapture(0)
 
 @app.route('/')
 @app.route('/index')
