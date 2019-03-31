@@ -15,7 +15,7 @@ function requestText(){
   if(detectionFlag) {
     $.ajax({
       type: 'GET',
-      url: "http://10.53.103.234:5000/text_feed",
+      url: "http://192.168.43.254:5000/text_feed",
     }).done(function (data) {
       if (data.success) {
         text_feed.innerHTML = data.text_detected;
@@ -28,7 +28,7 @@ function requestText(){
 function send_signal(){
   $.ajax({
     type: 'GET',
-    url: "http://10.53.103.234:5000/send_signal",
+    url: "http://192.168.43.254:5000/send_signal",
   }).done(function (data) {
     if (data.success) {
       signal_info.innerHTML = "Signals sent";
