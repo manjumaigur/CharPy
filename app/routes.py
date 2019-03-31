@@ -13,7 +13,7 @@ import RPi.GPIO as GPIO
 
 client = vision.ImageAnnotatorClient()
 
-vc = cv2.VideoCapture(192.168.43.254:8081)
+vc = cv2.VideoCapture("192.168.43.254:8081")
 
 @app.route('/')
 @app.route('/index')
@@ -32,6 +32,8 @@ def gen():
 @app.route('/text_feed', methods=['GET', 'POST'])
 def detect_text():
     """Detects text in the file."""
+    rval, frame = vc.read() 
+    cv2.imwrite('pic.jpg', frame)
     with io.open('pic.jpg', 'rb') as image_file:
         content = image_file.read()
 
