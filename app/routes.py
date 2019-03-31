@@ -26,6 +26,8 @@ def gen():
    while True: 
        rval, frame = vc.read() 
        cv2.imwrite('pic.jpg', frame)
+       cv2.destroyAllWindows()
+       vc.release()
        yield (b'--frame\r\n' 
               b'Content-Type: image/jpeg\r\n\r\n' + open('pic.jpg', 'rb').read() + b'\r\n') 
 
