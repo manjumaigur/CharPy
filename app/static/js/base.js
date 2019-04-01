@@ -28,7 +28,7 @@ function requestText(){
 function send_signal(){
   $.ajax({
     type: 'GET',
-    url: "http://192.168.43.254:5000/send_signal",
+    url: "http://localhost:5000/send_signal",
   }).done(function (data) {
     if (data.success) {
       signal_info.innerHTML = "Signals sent";
