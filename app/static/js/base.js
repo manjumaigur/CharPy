@@ -15,7 +15,7 @@ function requestText(){
   if(detectionFlag) {
     $.ajax({
       type: 'GET',
-      url: "http://192.168.43.254:5000/text_feed",
+      url: "http://localhost:5000/text_feed",
     }).done(function (data) {
       if (data.success) {
         text_feed.innerHTML = data.text_detected;
