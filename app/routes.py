@@ -4,6 +4,7 @@ from flask import jsonify
 from app import app
 import cv2
 import io
+import time
 from PIL import Image
 # Imports the Google Cloud client library
 from google.cloud import vision
@@ -13,7 +14,7 @@ import RPi.GPIO as GPIO
 
 client = vision.ImageAnnotatorClient()
 
-vc = cv2.VideoCapture("htpp://192.168.43.254:8081")
+vc = cv2.VideoCapture(0)
 
 @app.route('/')
 @app.route('/index')
@@ -32,8 +33,6 @@ def gen():
 @app.route('/text_feed', methods=['GET', 'POST'])
 def detect_text():
     """Detects text in the file."""
-    rval, frame = vc.read() 
-    cv2.imwrite('pic.jpg', frame)
     with io.open('pic.jpg', 'rb') as image_file:
         content = image_file.read()
 
@@ -58,21 +57,26 @@ def video_feed():
 
 @app.route('/send_signal', methods=['GET', 'POST'])
 def send_signal():
-  try:
-    GPIO_PIN = 23
-    GPIO.setmode(GPIO.BCM)
-    GPIO.setup(GPIO_PIN, GPIO.OUT)
-    GPIO.output(GPIO_PIN, GPIO.HIGH)
-    # time.sleep(1)
-    # GPIO.output(GPIO_PIN, GPIO.HIGH)
-    # time.sleep(1)
-    # GPIO.output(GPIO_PIN, GPIO.HIGH)
-    # time.sleep(1)
-    # GPIO.output(GPIO_PIN, GPIO.LOW)
-  except:
-    print ("Error inside function send_signal")
-    pass
-  GPIO.cleanup()
+  GPIO.setmode (GPIO.BOARD)       # programming the GPIO by BOARD pin numbers, GPIO21 is called as PIN40
+  GPIO.setup(40,GPIO.OUT)             # initialize digital pin40 as an output.
+  GPIO.output(40,1)                      # turn the LED on (making the voltage level HIGH)
+  time.sleep(1)                         # sleep for a second
+  GPIO.cleanup()                         # turn the LED off (making all the output pins LOW)
+  time.sleep(1)                        #sleep for a second    
+
+  GPIO.setmode (GPIO.BOARD)       # programming the GPIO by BOARD pin numbers, GPIO21 is called as PIN40
+  GPIO.setup(40,GPIO.OUT)             # initialize digital pin40 as an output.
+  GPIO.output(40,1)                      # turn the LED on (making the voltage level HIGH)
+  time.sleep(1)                         # sleep for a second
+  GPIO.cleanup()                         # turn the LED off (making all the output pins LOW)
+  time.sleep(1)                        #sleep for a second 
+
+  GPIO.setmode (GPIO.BOARD)       # programming the GPIO by BOARD pin numbers, GPIO21 is called as PIN40
+  GPIO.setup(40,GPIO.OUT)             # initialize digital pin40 as an output.
+  GPIO.output(40,1)                      # turn the LED on (making the voltage level HIGH)
+  time.sleep(1)                         # sleep for a second
+  GPIO.cleanup()                         # turn the LED off (making all the output pins LOW)
+  time.sleep(1)                        #sleep for a second 
   return jsonify(
       success=True,
   )
