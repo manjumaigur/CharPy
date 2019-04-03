@@ -1,0 +1,43 @@
+<html> 
+ <head> 
+	<title>Charpy</title> 
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="https://cdn.socket.io/socket.io-1.0.0.js"></script>
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/base.css') }}">
+	<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
+ </head> 
+ <!-- <body onload="requestText()"> -->
+ <body> 
+   	<h4 align="center">Charpy - Live Video Streaming</h4> 
+   	<div class="container-fluid" style="text-align: center;">
+		<img src="{{ url_for('video_feed') }}" height="400"> 
+	</div>
+ <!-- 	<div class="container-fluid" style="text-align: center;">
+		<iframe src="http://192.168.43.254:8081" style="text-align: center;" width="640px" height="480px"></iframe>
+	</div>-->
+	<div class="container-fluid text-center">
+		Text Detection<br>
+		<button class="btn btn-sm btn-success" onclick="startDetection()">ON</button>
+		<button class="btn btn-sm btn-danger" onclick="stopDetection()">OFF</button>
+	</div>
+	<div class="container-fluid text-center" id="text_feed">
+	</div>
+	<div class="container-fluid text-center signal_box">
+		<button class="btn btn-sm btn-primary" onclick="send_signal()">Start</button>
+		<p id="signal_info" class="text-success"></p>
+	</div>
+	<script src = "{{ url_for('static', filename='js/base.js') }}"></script>
+	<script type="text/javascript">
+	var text_feed = document.getElementById('text_feed');
+		$(document).ready(function() {
+	    var socket = io.connect('http://' + document.domain + ':' + location.port + '/text_feed');
+	    socket.on('text_feed', function(msg) {
+	    	console.log(msg.text_detected);
+	        text_feed.innerHTML = msg.text_detected;
+	    });
+	});
+</script>
+ </body>
+</html>

@@ -1,21 +1,16 @@
 var text_feed = document.getElementById('text_feed');
 var signal_info = document.getElementById('signal_info');
 var detectionFlag = 0;
-var socket;
 
-function startDetection() {
-  if(detectionFlag==0) {
-    socket = io.connect('http://' + document.domain + ':' + location.port + '/text_feed');
-  }
-  detectionFlag = 1;
-}
+// function startDetection() {
+//   detectionFlag = 1;
+//   requestText();
+// }
 
-function stopDetection() {
-  if(detectionFlag) {
-    socket.disconnect(true);
-  }
-  detectionFlag = 0;
-}
+// function stopDetection() {
+//   detectionFlag = 0;
+//   requestText();
+// }
 
 // function requestText(){
 //   if(detectionFlag) {
