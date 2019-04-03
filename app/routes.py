@@ -1,6 +1,7 @@
 from flask import Flask
 from flask import render_template, flash, redirect, url_for, session, request, Response, send_from_directory
 from flask import jsonify
+from app import app
 import cv2
 import io
 import os
@@ -32,6 +33,20 @@ def gen():
     cv2.imwrite('pic.jpg', frame)
     yield (b'--frame\r\n' 
               b'Content-Type: image/jpeg\r\n\r\n' + open('pic.jpg', 'rb').read() + b'\r\n')
+
+# @app.route('/text_feed')
+# def text_feed():
+#   with io.open('pic.jpg', 'rb') as image_file:
+#     content = image_file.read()
+
+#   image = types.Image(content=content)
+#   response = client.text_detection(image=image)
+#   texts = response.text_annotations
+#   string = ''
+#   for text in texts:
+#     string+=' ' + text.description
+#     break
+#   return jsonify (success=True, text_detected=string)
 
 # class TextThread(Thread):
 #     def __init__(self):
