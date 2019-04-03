@@ -8,9 +8,7 @@ var detectionFlag = 0;
 // }
 
 // function stopDetection() {
-//   detectionFlag = 0;
-//   requestText();
-// }
+//   detectionFlag = 0;}
 
 // function requestText(){
 //   if(detectionFlag) {
